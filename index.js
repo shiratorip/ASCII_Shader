@@ -2,7 +2,7 @@
 const canvasContainer = document.getElementById("canvas_container");
 const editorElement = document.getElementById("editor");
 const statsElement = document.getElementById("stats");
-
+const colorSlider = document.getElementById("colorSlider");
 
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
@@ -14,6 +14,7 @@ let chars = "?·-+*#@$░▒▓█";
 let animationRunning = null;
 let cachedShaderFunc = null;
 let lastShaderCode = "";
+let color = [191, 147, 27];
 
 // Canvas size and character dimensions
 const charWidth = 12;
@@ -71,7 +72,7 @@ function renderFrame() {
                 const char = chars[charIndex % chars.length];
 
                 // Set color and opacity based on pixel value
-                ctx.fillStyle = `rgba(191, 147, 27, ${pixelValue})`;
+                ctx.fillStyle = `rgba(${color[0]},${color[1]},${color[2]}, ${pixelValue})`;
 
                 // Render character
                 ctx.fillText(char, x * charWidth, y * charHeight);
@@ -113,6 +114,79 @@ function animate() {
     renderFrame();
     animationRunning = requestAnimationFrame(animate);
 }
+
+function changeColor() {
+
+    let color1 = rgbToHsv(color);
+    color1[0] = colorSlider.value;
+    color = hsvToRgb(color1);
+    document.getElementById("color_icon").backgroundColor = color;
+}
+
+function rgbToHsv(r, g, b) {
+    r = r / 255;
+    g = g / 255;
+    b = b / 255;
+    let minRGB = Math.min(r, g, b);
+    let maxRGB = Math.max(r, g, b);
+    let delta = maxRGB - minRGB;
+
+    //calculating hue
+    let hue;
+    if (delta === 0) {
+        hue = 0;
+    } else if (maxRGB === r) {
+        hue = 60 * (((g - b) / delta) % 6)
+    } else if (maxRGB === g) {
+        hue = 60 * (((b - r) / delta) + 2)
+    } else if (maxRGB === b) {
+        hue = 60 * (((r - g) / delta) + 4)
+    }
+    if (hue < 0) {
+        hue += 360;
+    }
+
+    //calculating saturation
+    let saturation;
+    if(maxRGB===0){
+        saturation = 0;
+    }else{
+        saturation = delta/maxRGB;
+    }
+
+    return [hue, saturation, maxRGB];
+}
+
+function hsvToRgb(h,s,v) {
+
+    let chroma = v*s;
+    let x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+    let m = v - c;
+    let r, g, b;
+
+    if (h >= 0 && h < 60) {
+        [r, g, b] = [c, x, 0];
+    } else if (h >= 60 && h < 120) {
+        [r, g, b] = [x, c, 0];
+    } else if (h >= 120 && h < 180) {
+        [r, g, b] = [0, c, x];
+    } else if (h >= 180 && h < 240) {
+        [r, g, b] = [0, x, c];
+    } else if (h >= 240 && h < 300) {
+        [r, g, b] = [x, 0, c];
+    } else {
+        [r, g, b] = [c, 0, x];
+    }
+
+    // Add m to each component and convert to 0-255 range
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+
+    return [r, g, b];
+}
+
+colorSlider.addEventListener("input", changeColor);
 
 //event listener for shader code changes
 editorElement.addEventListener('input', () => {
