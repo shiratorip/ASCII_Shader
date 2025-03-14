@@ -22,7 +22,18 @@ const cols = 60;
 const rows = 30;
 
 
+function resizeCanvas() {
+    canvas.width = cols * charWidth;
+    canvas.height = rows * charHeight;
 
+    // Set up the canvas for text rendering
+    ctx.font = `${charHeight}px monospace`;
+    ctx.textBaseline = "top";
+
+    if (!animationRunning) {
+        renderFrame();
+    }
+}
 
 // Get and cache the shader function
 function getShaderFunction() {
@@ -108,6 +119,7 @@ editorElement.addEventListener('input', () => {
     cachedShaderFunc = null;
 });
 
+window.addEventListener('resize', resizeCanvas);
 
 window.addEventListener('load', () => {
     resizeCanvas();

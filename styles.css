@@ -8,7 +8,7 @@ body {
 #editor {
     width: 100%;
     max-width: 600px;
-    height: 150px;
+    min-height: min-content;
     background-color: #252526;
     color: #d4d4d4;
     border: 1px solid #555;
