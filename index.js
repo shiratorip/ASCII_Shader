@@ -1,8 +1,8 @@
 const canvas = document.getElementById("ascii_canvas")
 let starttime = Date.now()
-const chars = " ·-+*#@$░▒▓█";
-renderFrame()
+let chars = "?·-+*#@$░▒▓█";
 let animationRunning = null;
+renderFrame()
 
 
 function getShaderFunction() {
@@ -15,6 +15,17 @@ function getShaderFunction() {
     } catch (error) {
         console.error("Error in shader code:", error);
         return null;
+    }
+}
+
+function distance(x,y,x2,y2){
+    return (Math.sqrt(Math.pow(Math.abs(x-x2),2)+Math.pow(Math.abs(y-y2),2)));
+}
+function distance(x,y,argument){
+
+    switch(argument){
+        case "center":
+            return 0;
     }
 }
 
@@ -48,6 +59,14 @@ function toggleAnimation(){
     }else{
         animate()
     }
+}
+function RandomizeTable(){
+    let newchars ='';
+    for (let i =1 ; i < 10; i++) {
+        newchars+=String.fromCharCode(Math.random()*128);
+    }
+    chars = newchars;
+
 }
 function animate() {
     renderFrame();

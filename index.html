@@ -7,7 +7,7 @@
 <body style="background-color: #303030">
 <textarea id="editor">
             function shader(x,y,time){
-    let value = Math.sin(x/60 / 0.25 %time) * Math.sin(y/50 * 0.25 + time);
+    let value = Math.sin(x/60 / 0.25 % time) * Math.sin(y/50 * 0.25 + time);
 
     value = (value + 1) * 0.5;
     return value;
@@ -20,9 +20,11 @@
 <div>
     <button onclick="renderFrame()">Render Single Frame</button>
     <button onclick="toggleAnimation()">Toggle Animation</button>
+    <button onclick="RandomizeTable()">Random ASCII</button>
 </div>
-<pre style="background-color: aquamarine;width: fit-content" id="ascii_canvas"></pre>
+<pre style="background-color: #1e1f22;width: fit-content" id="ascii_canvas"></pre>
 <script src="index.js">
+    setTimeout(renderFrame(),500)
 </script>
 
 </body>
