@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Shader</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>ASCII Shader</h1>
+
+<textarea id="editor" spellcheck="false">function shader(x, y, time) {
+    let value = Math.sin(x/60 / 0.25 % (time+1)) * Math.sin(y/50 * 0.25 + time);
+
+    value = (value + 1) * 0.5;
+    return value;
+}</textarea>
+
+<div id="controls">
+    <button onclick="renderFrame()">Render Single Frame</button>
+    <button onclick="toggleAnimation()">Toggle Animation</button>
+    <button onclick="randomizeTable()">Random ASCII</button>
+</div>
+
+<div id="canvas_container"></div>
+
+<script src="index.js"></script>
+</body>
+</html>
