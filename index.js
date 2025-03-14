@@ -201,7 +201,7 @@ window.addEventListener('load', () => {
     renderFrame();
 });
 
-
+changeColor();
 // Expose functions to HTML
 window.renderFrame = renderFrame;
 window.toggleAnimation = toggleAnimation;
