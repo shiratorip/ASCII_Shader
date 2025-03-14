@@ -2,7 +2,7 @@
 const canvasContainer = document.getElementById("canvas_container");
 const editorElement = document.getElementById("editor");
 const statsElement = document.getElementById("stats");
-const colorSlider = document.getElementById("colorSlider");
+const colorSlider = document.getElementById("color_slider");
 
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
@@ -117,10 +117,11 @@ function animate() {
 
 function changeColor() {
 
-    let color1 = rgbToHsv(color);
+    let color1 = rgbToHsv(color[0], color[1], color[2]);
     color1[0] = colorSlider.value;
-    color = hsvToRgb(color1);
-    document.getElementById("color_icon").backgroundColor = color;
+    color = hsvToRgb(color1[0], color1[1], color1[2]);
+
+    document.getElementById("color_icon").style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 }
 
 function rgbToHsv(r, g, b) {
@@ -148,34 +149,34 @@ function rgbToHsv(r, g, b) {
 
     //calculating saturation
     let saturation;
-    if(maxRGB===0){
+    if (maxRGB === 0) {
         saturation = 0;
-    }else{
-        saturation = delta/maxRGB;
+    } else {
+        saturation = delta / maxRGB;
     }
 
     return [hue, saturation, maxRGB];
 }
 
-function hsvToRgb(h,s,v) {
+function hsvToRgb(h, s, v) {
 
-    let chroma = v*s;
-    let x = c * (1 - Math.abs(((h / 60) % 2) - 1));
-    let m = v - c;
+    let chroma = v * s;
+    let x = chroma * (1 - Math.abs(((h / 60) % 2) - 1));
+    let m = v - chroma;
     let r, g, b;
 
     if (h >= 0 && h < 60) {
-        [r, g, b] = [c, x, 0];
+        [r, g, b] = [chroma, x, 0];
     } else if (h >= 60 && h < 120) {
-        [r, g, b] = [x, c, 0];
+        [r, g, b] = [x, chroma, 0];
     } else if (h >= 120 && h < 180) {
-        [r, g, b] = [0, c, x];
+        [r, g, b] = [0, chroma, x];
     } else if (h >= 180 && h < 240) {
-        [r, g, b] = [0, x, c];
+        [r, g, b] = [0, x, chroma];
     } else if (h >= 240 && h < 300) {
-        [r, g, b] = [x, 0, c];
+        [r, g, b] = [x, 0, chroma];
     } else {
-        [r, g, b] = [c, 0, x];
+        [r, g, b] = [chroma, 0, x];
     }
 
     // Add m to each component and convert to 0-255 range

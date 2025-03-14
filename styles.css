@@ -41,8 +41,6 @@ button:hover {
 }
 
 #canvas_container {
-    min-width: min-content;
-    min-height: min-content;
     display: inline-block;
     border: 1px solid #555;
 }
