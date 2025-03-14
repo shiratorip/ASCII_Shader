@@ -8,7 +8,11 @@
 </head>
 <body>
 <h1>ASCII Shader</h1>
-
+<div class="slidecontainer">
+    <label >Font Color:</label>
+    <input type="range" min="0" max="360" value="44" class="slider" id="color_slider">
+    <div id="color_icon"></div>
+</div>
 <textarea id="editor" spellcheck="false">function shader(x, y, time) {
     let value = Math.sin(x/60 / 0.25 % (time+1)) * Math.sin(y/50 * 0.25 + time);
 
