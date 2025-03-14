@@ -1,0 +1,42 @@
+body {
+    background-color: #303030;
+    color: #ffffff;
+    font-family: monospace;
+    margin: 20px;
+}
+
+#editor {
+    width: 100%;
+    max-width: 600px;
+    height: 150px;
+    background-color: #252526;
+    color: #d4d4d4;
+    border: 1px solid #555;
+    padding: 8px;
+    font-family: monospace;
+    margin-bottom: 10px;
+    tab-size: 4;
+}
+
+#controls {
+    margin: 10px 0;
+}
+
+button {
+    background-color: #3c3f41;
+    color: #d4d4d4;
+    border: 1px solid #555;
+    padding: 8px 12px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #4e5254;
+}
+
+#canvas_container {
+    display: inline-block;
+    border: 1px solid #555;
+}
