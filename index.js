@@ -14,7 +14,7 @@ let chars = "?·-+*#@$░▒▓█";
 let animationRunning = null;
 let cachedShaderFunc = null;
 let lastShaderCode = "";
-let color = [191, 147, 27];
+let color = [44, 80, 85];
 
 
 // Canvas size and character dimensions
@@ -80,7 +80,7 @@ function renderFrame() {
                 const char = chars[charIndex % chars.length];
 
                 // Set color and opacity based on pixel value
-                ctx.fillStyle = `rgba(${color[0]},${color[1]},${color[2]}, ${pixelValue})`;
+                ctx.fillStyle = `hsla(${color[0]},${color[1]}%,${color[2]}%, ${pixelValue})`;
 
                 // Render character
                 ctx.fillText(char, x * charWidth, y * charHeight);
@@ -115,6 +115,10 @@ function randomizeTable() {
     if (!animationRunning) {
         renderFrame();
     }
+}
+
+function randomizeColor() {
+
 }
 
 // Animation frame loop
