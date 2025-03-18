@@ -8,7 +8,7 @@ body {
 #editor {
     width: 100%;
     max-width: 600px;
-    min-height: min-content;
+    min-height: 200px;
     background-color: #252526;
     color: #d4d4d4;
     border: 1px solid #555;
@@ -41,6 +41,5 @@ button:hover {
 }
 
 #canvas_container {
-    display: inline-block;
     border: 1px solid #555;
 }

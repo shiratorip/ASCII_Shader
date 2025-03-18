@@ -16,15 +16,23 @@ let cachedShaderFunc = null;
 let lastShaderCode = "";
 let color = [191, 147, 27];
 
+
 // Canvas size and character dimensions
-const charWidth = 12;
-const charHeight = 16;
-const cols = 60;
-const rows = 30;
+const charWidth = 8;
+const charHeight = 12;
+const cols = 200;
+const rows = 50;
 
 
 function resizeCanvas() {
-    canvas.width = cols * charWidth;
+    canvas.style.boxSizing = 'border-box';
+    canvas.style.width = 'calc(100% - 20px)';
+    canvas.style.margin = '10px';
+
+    const computedStyle = window.getComputedStyle(canvas);
+    const displayWidth = parseInt(computedStyle.width);
+
+    canvas.width = displayWidth;
     canvas.height = rows * charHeight;
 
     // Set up the canvas for text rendering
