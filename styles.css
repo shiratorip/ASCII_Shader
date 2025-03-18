@@ -43,3 +43,27 @@ button:hover {
 #canvas_container {
     border: 1px solid #555;
 }
+input[type="range"] {
+    -webkit-appearance: none;
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(
+            to right,
+            hsl(0, 80%, 75%),
+            hsl(60, 80%, 75%),
+            hsl(120, 80%, 75%),
+            hsl(180, 80%, 75%),
+            hsl(240, 80%, 75%),
+            hsl(300, 80%, 75%),
+            hsl(360, 80%, 75%)
+    );
+    outline: none;}
+
+input[type="range"]::-moz-range-thumb {
+    width: 5px;
+    height: 20px;
+    border-radius: 10%;
+    background: white;
+    border: 2px solid #ccc;
+    cursor: pointer;
+}

@@ -14,12 +14,12 @@ let chars = "?·-+*#@$░▒▓█";
 let animationRunning = null;
 let cachedShaderFunc = null;
 let lastShaderCode = "";
-let color = [44, 80, 85];
+let color = [44, 80, 70];
 
 
 // Canvas size and character dimensions
-const charWidth = 8;
-const charHeight = 12;
+const charWidth = 10;
+const charHeight = 14;
 const cols = 200;
 const rows = 50;
 
@@ -129,74 +129,8 @@ function animate() {
 
 function changeColor() {
 
-    let color1 = rgbToHsv(color[0], color[1], color[2]);
-    color1[0] = colorSlider.value;
-    color = hsvToRgb(color1[0], color1[1], color1[2]);
-
-    document.getElementById("color_icon").style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-}
-
-function rgbToHsv(r, g, b) {
-    r = r / 255;
-    g = g / 255;
-    b = b / 255;
-    let minRGB = Math.min(r, g, b);
-    let maxRGB = Math.max(r, g, b);
-    let delta = maxRGB - minRGB;
-
-    //calculating hue
-    let hue;
-    if (delta === 0) {
-        hue = 0;
-    } else if (maxRGB === r) {
-        hue = 60 * (((g - b) / delta) % 6)
-    } else if (maxRGB === g) {
-        hue = 60 * (((b - r) / delta) + 2)
-    } else if (maxRGB === b) {
-        hue = 60 * (((r - g) / delta) + 4)
-    }
-    if (hue < 0) {
-        hue += 360;
-    }
-
-    //calculating saturation
-    let saturation;
-    if (maxRGB === 0) {
-        saturation = 0;
-    } else {
-        saturation = delta / maxRGB;
-    }
-
-    return [hue, saturation, maxRGB];
-}
-
-function hsvToRgb(h, s, v) {
-
-    let chroma = v * s;
-    let x = chroma * (1 - Math.abs(((h / 60) % 2) - 1));
-    let m = v - chroma;
-    let r, g, b;
-
-    if (h >= 0 && h < 60) {
-        [r, g, b] = [chroma, x, 0];
-    } else if (h >= 60 && h < 120) {
-        [r, g, b] = [x, chroma, 0];
-    } else if (h >= 120 && h < 180) {
-        [r, g, b] = [0, chroma, x];
-    } else if (h >= 180 && h < 240) {
-        [r, g, b] = [0, x, chroma];
-    } else if (h >= 240 && h < 300) {
-        [r, g, b] = [x, 0, chroma];
-    } else {
-        [r, g, b] = [chroma, 0, x];
-    }
-
-    // Add m to each component and convert to 0-255 range
-    r = Math.round((r + m) * 255);
-    g = Math.round((g + m) * 255);
-    b = Math.round((b + m) * 255);
-
-    return [r, g, b];
+    color[0] = colorSlider.value;
+    document.getElementById("color_icon").style.backgroundColor = `hsla(${color[0]}, ${color[1]}%, ${color[2]}%,1)`;
 }
 
 colorSlider.addEventListener("input", changeColor);
