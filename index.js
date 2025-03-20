@@ -9,13 +9,16 @@ const ctx = canvas.getContext("2d");
 canvasContainer.appendChild(canvas);
 
 // Configuration
-let startTime = Date.now();
+let time = 0;
 let chars = "?·-+*#@$░▒▓█";
 let animationRunning = null;
 let cachedShaderFunc = null;
 let lastShaderCode = "";
 let color = [44, 80, 70];
 
+// FPS Configuration
+const targetFPS = 60;
+const frameInterval = 1000 / targetFPS;
 
 // Canvas size and character dimensions
 const charWidth = 10;
@@ -65,7 +68,7 @@ function getShaderFunction() {
 function renderFrame() {
     const now = performance.now();
     const shaderFunc = getShaderFunction();
-    const time = (Date.now() - startTime) / 1000;
+    time +=frameInterval/1000;
 
     // Clear canvas with background color
     ctx.fillStyle = "#1e1f22";
@@ -93,14 +96,13 @@ function renderFrame() {
     }
 }
 
-
 // Toggle animation
 function toggleAnimation() {
     if (animationRunning) {
-        cancelAnimationFrame(animationRunning);
+        clearInterval(animationRunning);
         animationRunning = null;
     } else {
-        animate();
+        animationRunning = setInterval(renderFrame, frameInterval);
     }
 }
 
@@ -121,14 +123,8 @@ function randomizeColor() {
 
 }
 
-// Animation frame loop
-function animate() {
-    renderFrame();
-    animationRunning = requestAnimationFrame(animate);
-}
 
 function changeColor() {
-
     color[0] = colorSlider.value;
     document.getElementById("color_icon").style.backgroundColor = `hsla(${color[0]}, ${color[1]}%, ${color[2]}%,1)`;
 }
