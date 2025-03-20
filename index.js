@@ -65,6 +65,10 @@ function getShaderFunction() {
     return cachedShaderFunc;
 }
 
+function setColor(pixelValue) {
+    ctx.fillStyle = `hsla(${color[0]},${color[1]}%,${color[2]}%, ${pixelValue})`;
+}
+
 function renderFrame() {
     const now = performance.now();
     const shaderFunc = getShaderFunction();
@@ -83,8 +87,7 @@ function renderFrame() {
                 const char = chars[charIndex % chars.length];
 
                 // Set color and opacity based on pixel value
-                ctx.fillStyle = `hsla(${color[0]},${color[1]}%,${color[2]}%, ${pixelValue})`;
-
+                setColor(pixelValue);
                 // Render character
                 ctx.fillText(char, x * charWidth, y * charHeight);
             } catch (error) {
@@ -119,7 +122,23 @@ function randomizeTable() {
     }
 }
 
+//change setColor implementation depending on the checkbox value
 function randomizeColor() {
+    console.log(document.getElementById("color_randomizer").checked)
+    if(document.getElementById("color_randomizer").checked){
+        setColor = function (pixelValue) {
+            let value = Math.min(10, Math.floor(pixelValue * 9 + 1));
+            let hue = color[0]-(36*value);
+            if (hue < 0) hue +=360;
+            ctx.fillStyle = `hsla(${hue},${color[1]}%,${color[2]}%, ${pixelValue})`;
+
+        }
+    }else{
+        setColor = function (pixelValue) {
+            ctx.fillStyle = `hsla(${color[0]},${color[1]}%,${color[2]}%, ${pixelValue})`;
+        }
+    }
+
 
 }
 

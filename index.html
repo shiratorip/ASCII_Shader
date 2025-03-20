@@ -9,7 +9,7 @@
 <body>
 <h1>ASCII Shader</h1>
 <div class="slidecontainer">
-    <label >Font Color:</label>
+    <label>Font Color:</label>
     <input type="range" min="0" max="360" value="44" class="slider" id="color_slider">
     <div id="color_icon"></div>
 </div>
@@ -24,7 +24,11 @@
     <button onclick="renderFrame()">Render Single Frame</button>
     <button onclick="toggleAnimation()">Toggle Animation</button>
     <button onclick="randomizeTable()">Random ASCII</button>
-    <input type="checkbox" onchange="randomizeColor()">
+    <div>
+        <input id="color_randomizer" type="checkbox" onchange="randomizeColor()">
+        <label for="color_randomizer">Gradient hue</label>
+    </div>
+
 </div>
 
 <div id="canvas_container"></div>
