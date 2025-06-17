@@ -13,24 +13,31 @@
     <input type="range" min="0" max="360" value="44" class="slider" id="color_slider">
     <div id="color_icon"></div>
 </div>
-<textarea id="editor" spellcheck="false">function shader(x, y, time) {
-    let value = Math.sin(x/60 / 0.25 % (time+1)) * Math.sin(y/50 * 0.25 + time);
-
-    value = (value + 1) * 0.5;
-    return value;
-}</textarea>
-<input type="file" id="file" accept="image/*">
-<button onclick="draw()">draw</button>
-
-<div id="controls">
-    <button onclick="renderFrame()">Render Single Frame</button>
-    <button onclick="toggleAnimation()">Toggle Animation</button>
+<div class="controls">
     <button onclick="randomizeTable()">Random ASCII</button>
-    <div>
+    <input type="text" id="ascii_table" value="?·-+*#@$░▒▓█">
+    <div id="hue_checkbox">
         <input id="color_randomizer" type="checkbox" onchange="randomizeColor()">
         <label for="color_randomizer">Gradient hue</label>
     </div>
+</div>
+<div id="editor_container">
+    <textarea id="editor" spellcheck="false">function shader(x, y, time) {
+        let value = Math.sin(x/60 / 0.25 % (time+1)) * Math.sin(y/50 * 0.25 + time);
 
+        value = (value + 1) * 0.5;
+        return value;
+    }</textarea>
+</div>
+<div id="drawing_container">
+    <input type="file" id="file" accept="image/*">
+    <button onclick="draw()">draw</button>
+</div>
+
+<div class="controls">
+    <button onclick="renderFrame()">Render Single Frame</button>
+    <button onclick="toggleAnimation()">Toggle Animation</button>
+    
 </div>
 
 <div id="canvas_container"></div>

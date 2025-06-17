@@ -3,6 +3,7 @@ const canvasContainer = document.getElementById("canvas_container");
 const editorElement = document.getElementById("editor");
 const statsElement = document.getElementById("stats");
 const colorSlider = document.getElementById("color_slider");
+const symbolsInput = document.getElementById("ascii_table");
 
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
@@ -10,7 +11,7 @@ canvasContainer.appendChild(canvas);
 
 // Configuration
 let time = 0;
-let chars = "?·-+*#@$░▒▓█";
+let chars = symbolsInput.value;
 let animationRunning = null;
 let cachedShaderFunc = null;
 let lastShaderCode = "";
@@ -43,7 +44,7 @@ function resizeCanvas() {
     ctx.textBaseline = "top";
 
     if (!animationRunning) {
-        renderFrame();
+        renderFrameStatic();
     }
 }
 
@@ -70,9 +71,12 @@ function setColor(pixelValue) {
 }
 
 function renderFrame() {
-    const now = performance.now();
-    const shaderFunc = getShaderFunction();
     time +=frameInterval/1000;
+    renderFrameStatic();
+}
+
+function renderFrameStatic() {
+    const shaderFunc = getShaderFunction();
 
     // Clear canvas with background color
     ctx.fillStyle = "#1e1f22";
@@ -116,9 +120,9 @@ function randomizeTable() {
         chars += String.fromCharCode(Math.floor(Math.random() * (127 - 32 + 1) + 32));
     }
 
-    console.log("New character set:", chars);
+    document.getElementById("ascii_table").value = chars;
     if (!animationRunning) {
-        renderFrame();
+        renderFrameStatic();
     }
 }
 
@@ -138,7 +142,9 @@ function randomizeColor() {
             ctx.fillStyle = `hsla(${color[0]},${color[1]}%,${color[2]}%, ${pixelValue})`;
         }
     }
-
+    if (!animationRunning) {
+        renderFrameStatic();
+    }
 
 }
 
@@ -146,10 +152,21 @@ function randomizeColor() {
 function changeColor() {
     color[0] = colorSlider.value;
     document.getElementById("color_icon").style.backgroundColor = `hsla(${color[0]}, ${color[1]}%, ${color[2]}%,1)`;
+    if (!animationRunning) {
+        renderFrameStatic();
+    }
 }
 
 colorSlider.addEventListener("input", changeColor);
-
+symbolsInput.addEventListener("input", () => {
+    chars = symbolsInput.value;
+    if (chars.length === 0) {
+        chars = "?·-+*#@$░▒▓█";
+    }
+    if (!animationRunning) {
+        renderFrameStatic();
+    }
+})
 //event listener for shader code changes
 editorElement.addEventListener('input', () => {
     cachedShaderFunc = null;
