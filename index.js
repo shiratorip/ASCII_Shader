@@ -165,6 +165,8 @@ function changeColor() {
     }
 }
 
+resizeCanvas();
+
 colorSlider.addEventListener("input", changeColor);
 symbolsInput.addEventListener("input", () => {
     chars = symbolsInput.value;
