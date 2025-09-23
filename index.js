@@ -9,8 +9,11 @@ const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
 canvasContainer.appendChild(canvas);
 canvas.setAttribute("display","block");
-canvas.setAttribute("height","100%");
-canvas.setAttribute("width","100%");
+canvasContainer.style.width = '100%';
+canvasContainer.style.padding = 0;
+canvasContainer.style.margin = '10px';
+canvas.style.display = 'block';
+
 
 // Configuration
 let time = 0;
@@ -32,14 +35,16 @@ const rows = 50;
 
 
 function resizeCanvas() {
+    // Get the container's width
+    const containerWidth = canvasContainer.clientWidth;
+    
+    // Set canvas size based on container
     canvas.style.boxSizing = 'border-box';
-    canvas.style.width = 'calc(100% - 20px)';
-    canvas.style.margin = '10px';
-
-    const computedStyle = window.getComputedStyle(canvas);
-    const displayWidth = parseInt(computedStyle.width);
-
-    canvas.width = displayWidth;
+    canvas.style.width = `${containerWidth-20}px`;
+    canvas.style.margin = '0';
+    
+    // Set the actual canvas dimensions
+    canvas.width = containerWidth;
     canvas.height = rows * charHeight;
 
     // Set up the canvas for text rendering
