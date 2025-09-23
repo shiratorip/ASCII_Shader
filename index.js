@@ -8,6 +8,9 @@ const symbolsInput = document.getElementById("ascii_table");
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
 canvasContainer.appendChild(canvas);
+canvas.setAttribute("display","block");
+canvas.setAttribute("height","100%");
+canvas.setAttribute("width","100%");
 
 // Configuration
 let time = 0;
